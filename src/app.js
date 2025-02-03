@@ -10,6 +10,8 @@ const { setupCron }  = require("./config/cron")
 const { errorHandler }  = require("./middleware/errorHandler")
 const { loggerMiddleware }  = require("./middleware/logger")
 const { authMiddleware }  = require("./middleware/auth")
+const swaggerJsDoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
 const { roleMiddleware }  = require("./middleware/roleMiddleware")
 const routes  = require("./routes");
 const dotenv = require("dotenv");
@@ -47,7 +49,28 @@ setupBull()
 setupCron()
 
 // Routes
-app.use("/api", authMiddleware, roleMiddleware(["user", "admin"]), routes)
+app.use("/api", routes)
+
+// Swagger configuration
+const swaggerOptions = {
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "CPaaS API",
+      version: "1.0.0",
+      description: "Communication Platform as a Service API Documentation",
+    },
+    servers: [
+      {
+        url: "http://localhost:"+ process.env.PORT, // Change this for production
+      },
+    ],
+  },
+  apis: ["src/routes/*.js"], // Path to API routes
+};
+
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // Error handling middleware
 app.use(errorHandler)

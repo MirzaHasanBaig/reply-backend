@@ -1,5 +1,5 @@
 const { Router } = require("express")
-// const authRoutes  = require("./authRoutes")
+const authRoutes  = require("./authRoutes")
 // const userRoutes  = require("./userRoutes")
 // const campaignRoutes  = require("./campaignRoutes")
 // const contactRoutes  = require("./contactRoutes")
@@ -14,7 +14,7 @@ const { Router } = require("express")
 
 const router = Router()
 
-// router.use("/auth", authRoutes)
+router.use("/auth", authRoutes)
 // router.use("/users", userRoutes)
 // router.use("/campaigns", campaignRoutes)
 // router.use("/contacts", contactRoutes)
