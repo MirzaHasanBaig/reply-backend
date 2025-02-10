@@ -14,10 +14,10 @@ const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 const { roleMiddleware }  = require("./middleware/roleMiddleware")
 const routes  = require("./routes");
-const dotenv = require("dotenv");
 
 // Load environment variables
-dotenv.config();
+require("dotenv").config();
+
 
 const app = express()
 

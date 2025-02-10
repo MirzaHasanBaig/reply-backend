@@ -41,6 +41,10 @@ router.post("/login", async(req,res)=>{
  *               type: string
  *               format: password
  *               example: "password123"
+ *             otpSecret:
+ *               type: string
+ *               example: "123456"
+ *               
  *     responses:
  *       200:
  *         description: Successfully retrieved JWT token
