@@ -1,12 +1,12 @@
 const mongoose  = require("mongoose")
+//user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
 
 const contactSchema = new mongoose.Schema({
-  user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   name: { type: String,required: true },
   email: { type: String,required: true },
-  phone: { type },
-  whatsapp: { type },
-  tags: [{ type }],
+  phone: { type: String },
+  whatsapp: { type: String,},
+  tags: [{ type: String,}],
   groups: [{ type: mongoose.Schema.Types.ObjectId, ref: "ContactGroup" }],
   leadScore: { type: Number, default: 0 },
   leadStatus: { type: mongoose.Schema.Types.ObjectId, ref: "LeadStatus" },
@@ -16,5 +16,5 @@ const contactSchema = new mongoose.Schema({
   updatedAt: { type: Date, default: Date.now },
 })
 
-export const Contact = mongoose.model("Contact", contactSchema)
+module.exports = mongoose.model("Contact", contactSchema);
 

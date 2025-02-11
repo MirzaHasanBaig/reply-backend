@@ -29,21 +29,31 @@ router.post("/create", async (req, res) => {
       collection_method: "charge_automatically",
       payment_settings: {
         payment_method_options: {
-          card: { },
+          card: {},
         },
         payment_method_types: ["card"],
         save_default_payment_method: "on_subscription",
       },
-      expand: ["latest_invoice"],
+      expand: ["latest_invoice.payment_intent"],
     });
 
     console.log("Subscription created:", subscription.id);
 
+    // 🔥 Fix: Extract the client secret properly
     const clientSecret = subscription.latest_invoice?.payment_intent?.client_secret || null;
+    const clientInvoice = subscription.latest_invoice?.hosted_invoice_url || null;
+    const customerId = subscription.latest_invoice?.customer || null;
+
+    if (!clientSecret) {
+      console.error("No client secret found in payment intent");
+      return res.status(400).json({ error: "Payment Intent Client Secret not found." });
+    }
 
     res.json({
       clientSecret,
       subscriptionId: subscription.id,
+      clientInvoice,
+      customerId
     });
   } catch (error) {
     console.error("Error creating subscription:", error);
