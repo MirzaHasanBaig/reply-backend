@@ -13,10 +13,12 @@ const userSchema = new mongoose.Schema({
   microsoftId: { type: String},
   otpSecret: { type: String},
   authenticatorSecret: { type: String},
+  isAuthenticatorSecret: { type: Boolean,default: false},
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
   SubscriptId: { type: String },
   Plan: { type: mongoose.Schema.Types.ObjectId, ref: "Plan" },
+  planExpiry: { type: Date,default: Date.now },
 })
 
 userSchema.pre("save", async function (next) {

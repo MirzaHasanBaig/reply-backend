@@ -5,7 +5,7 @@ const websiteSchema = new mongoose.Schema({
   content: { type: mongoose.Schema.Types.Mixed, required: true },
   user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   published: { type: Boolean, default: false },
-  domain: { type },
+  domain: { type: String },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 })

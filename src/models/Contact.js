@@ -1,7 +1,7 @@
 const mongoose  = require("mongoose")
-//user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
 
 const contactSchema = new mongoose.Schema({
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   name: { type: String,required: true },
   email: { type: String,required: true },
   phone: { type: String },
@@ -9,7 +9,7 @@ const contactSchema = new mongoose.Schema({
   tags: [{ type: String,}],
   groups: [{ type: mongoose.Schema.Types.ObjectId, ref: "ContactGroup" }],
   leadScore: { type: Number, default: 0 },
-  leadStatus: { type: mongoose.Schema.Types.ObjectId, ref: "LeadStatus" },
+  leadStatus: { type: String,enum: ["active", "block", "unsubscribed", "delete"], default: "active" },
   source: { type: mongoose.Schema.Types.ObjectId, ref: "LeadSource" },
   assignedTo: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   createdAt: { type: Date, default: Date.now },
